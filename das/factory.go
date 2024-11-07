@@ -169,7 +169,8 @@ func CreateDAComponentsForDaserver(
 	// Check config requirements
 	if !config.LocalDBStorage.Enable &&
 		!config.LocalFileStorage.Enable &&
-		!config.S3Storage.Enable {
+		!config.S3Storage.Enable &&
+		!config.GoogleCloudStorage.Enable {
 		return nil, nil, nil, nil, nil, errors.New("At least one of --data-availability.(local-db-storage|local-file-storage|s3-storage) must be enabled.")
 	}
 	// Done checking config requirements

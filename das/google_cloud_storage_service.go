@@ -185,11 +185,11 @@ func (gcs *GoogleCloudStorageService) HealthCheck(ctx context.Context) error {
 	// check if we have bucket permissions
 	permissions := []string{
 		"storage.buckets.get",
-		"storage.buckets.list",
+		//"storage.buckets.list",
 		"storage.objects.create",
 		"storage.objects.delete",
 		"storage.objects.list",
-		"storage.objects.get",
+		//"storage.objects.get",
 	}
 	perms, err := bucket.IAM().TestPermissions(ctx, permissions)
 	if err != nil {
