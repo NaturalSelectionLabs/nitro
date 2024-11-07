@@ -47,6 +47,7 @@ import (
 	"github.com/offchainlabs/nitro/util/rpcclient"
 	"github.com/offchainlabs/nitro/util/signature"
 	"github.com/offchainlabs/nitro/util/stopwaiter"
+	"github.com/redis/go-redis/v9"
 	"github.com/spf13/pflag"
 
 	redisstorage "github.com/offchainlabs/nitro/arbnode/dataposter/redis"
