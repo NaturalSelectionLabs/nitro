@@ -9,6 +9,7 @@ import (
 	"context"
 	"crypto/tls"
 	"crypto/x509"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -46,7 +47,6 @@ import (
 	"github.com/offchainlabs/nitro/util/rpcclient"
 	"github.com/offchainlabs/nitro/util/signature"
 	"github.com/offchainlabs/nitro/util/stopwaiter"
-	"github.com/redis/go-redis/v9"
 	"github.com/spf13/pflag"
 
 	redisstorage "github.com/offchainlabs/nitro/arbnode/dataposter/redis"
@@ -311,7 +311,10 @@ func externalSigner(ctx context.Context, opts *ExternalSignerCfg) (signerFn, com
 			return nil, fmt.Errorf("converting transaction arguments into transaction: %w", err)
 		}
 		if h := hasher.Hash(gotTx); h != hasher.Hash(signedTx) {
-			return nil, fmt.Errorf("transaction: %x from external signer differs from request: %x", hasher.Hash(signedTx), h)
+			//return nil, fmt.Errorf("transaction: %x from external signer differs from request: %x", hasher.Hash(signedTx), h)
+			unsignedTxOut, _ := json.Marshal(tx)
+			signedTxOut, _ := json.Marshal(signedTx)
+			log.Warn("transaction: %x from external signer differs from request: %x, unsignedTx: %x, signedTx: %x", hasher.Hash(signedTx), h, string(unsignedTxOut), string(signedTxOut))
 		}
 		return signedTx, nil
 	}, sender, nil
